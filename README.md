@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -72,4 +72,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 =======
 # zyara-front-end
 This is the front end project for the zyara shopping app project
->>>>>>> 6532bc6d650dbc99f2042ca67846cb6a77600001
+
