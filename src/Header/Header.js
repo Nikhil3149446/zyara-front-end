@@ -3,9 +3,14 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { Badge } from '@mui/material';
 import ZyaraLogo from '../assets/ZyaraLogo.png'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { useNavigate } from 'react-router-dom';
 function Header(){
+    const navigate=useNavigate();
+    function handleOnCartClick(){
+             navigate('/cart')
+    }
 return (
-    <div className="w-full h-[60px] bg-white flex flex-row items-center justify-between shadow-md">
+    <div className="fixed w-full h-[60px] bg-white flex flex-row items-center justify-between shadow-md ">
         {/* <h1 className="font-bold  text-4xl text-blue-500 ml-[50px]">Zyara</h1> */}
         <img src={ZyaraLogo} className='h-[90%] ml-[50px]'></img>
        
@@ -37,6 +42,7 @@ return (
             stroke: "#ffffff",
             strokeWidth:1
         }}
+        onClick={handleOnCartClick}
         />
         </Badge>
         <p className='ml-2 font-semibold'>Cart</p>
