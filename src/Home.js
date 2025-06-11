@@ -26,7 +26,7 @@ function Home(){
         })
       }
     return (
-        <div>
+        <div className='mt-[60px] items-start flex flex-col'>
             <ProductCategory/>
       <ProductsSlider/>
       <button className='w-[70px] pb-2 pt-2 bg-green-300 m-3 rounded'

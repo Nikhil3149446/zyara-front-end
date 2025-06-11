@@ -7,8 +7,8 @@ function CartHomePage(){
         <div className="w-[65%]">
             <CartItem/>
         </div>
-        <div className="w-[35%]">
-        <div className="bg-white mt-2">
+        <div className="w-[35%] rounded">
+        <div className="bg-white mt-2 rounded">
           <h1 className="font-semibold text-xl text-gray-600 pt-2 pb-2">PRICE DETAILS</h1>
           <Divider orientation="horizontal"></Divider>
           <div className="flex flex-col items-start">
