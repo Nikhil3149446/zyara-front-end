@@ -1,6 +1,8 @@
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProductCategory(){
+    const navigate=useNavigate();
     const images={
         'Kilos':'https://th.bing.com/th/id/OIP.gY-RbTVs04v13f4x2ca4cAHaGL?rs=1&pid=ImgDetMain',
         'Mobile':'https://thumbs.dreamstime.com/b/high-detailed-realistic-green-smartphone-back-front-view-duo-camera-back-side-phone-frameless-trendy-cellphone-168314439.jpg',
@@ -11,18 +13,28 @@ function ProductCategory(){
         'Flight Booking':'https://img.freepik.com/free-psd/isolated-plane-details_23-2151839972.jpg?ga=GA1.1.625485697.1749292696&semt=ais_items_boosted&w=740',
         'Beauty Toys & More':'https://img.freepik.com/free-psd/view-children-s-stuffed-animal_23-2151517687.jpg?ga=GA1.1.625485697.1749292696&semt=ais_items_boosted&w=740',
     }
+    function handleOnProductCategoryClicked(productName,productUrl){
+        console.log("Clicked the Product Category Image",productName,productUrl)
+
+         navigate('/productCategory',
+            {state:{
+            productName:productName.toLowerCase(),
+            productUrl:productUrl}
+            }
+        )
+    }
     return (
         <Fragment>
             <div className=" flex flex-row w-[99%] gap-3 justify-between shadow-sm h-[120px] bg-white ml-2 mt-2 rounded">
               {
                 Object.entries(images).map(([key,value])=>{
                     return (
-                        <div className="flex flex-col justify-between items-center">
+                        <button className="flex flex-col justify-between items-center" onClick={()=>handleOnProductCategoryClicked(key,value)}>
                         
                             <img src={value} className="w-[65px] h-[70%] ml-2 mt-1"></img>
                             <p className="mr-1 mb-1 font-semibold">{key}</p>
                             
-                        </div>
+                        </button>
                     )
               })
               }

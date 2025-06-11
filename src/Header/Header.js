@@ -9,6 +9,9 @@ function Header(){
     function handleOnCartClick(){
              navigate('/cart')
     }
+    function handleOnProfileIconClicked(){
+        navigate('/login')
+    }
 return (
     <div className="fixed w-full h-[60px] bg-white flex flex-row items-center justify-between shadow-md ">
         {/* <h1 className="font-bold  text-4xl text-blue-500 ml-[50px]">Zyara</h1> */}
@@ -27,7 +30,7 @@ return (
             stroke: "#ffffff",
             strokeWidth:1
         }}
-            
+            onClick={()=>handleOnProfileIconClicked()}
         ></AccountCircleOutlinedIcon>
         <p className='font-semibold ml-2'>Login</p>
 

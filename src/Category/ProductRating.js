@@ -4,23 +4,8 @@ import { Fragment, useEffect, useState } from "react";
 function ProductRating({ratingValue}){
     const [popularProduct,setPopularProduct]=useState([])
     async function fetchPopularProducts(){
-         var rating=5;
-         if(ratingValue.includes("2")){
-            rating=2;
-            console.log("The rating value contains the 2") 
-        }
-        else if(ratingValue.includes("3")){
-            rating=3;
-            console.log("The rating value contains the 3") 
-        }
-        else if(ratingValue.includes("4")){
-            rating=4;
-            console.log("The rating value contains the 4") 
-        }
-        else if(ratingValue.includes("5")){
-            rating=5;
-            console.log("The rating value contains the 5") 
-        }
+        var rating=ratingValue===''?5:ratingValue;
+  
         console.log("The rating value is",rating)
        
          const result=await axios.post('http://localhost:8080/api/categories/popular-categories',rating,{
