@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import ProductDetailItem from "./ProductDetailItem";
-import { Divider } from "@mui/material";
+import { Box, Divider, Slider } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -26,9 +26,32 @@ function ProductDetails(){
       }, [location.state.productName]);
     return (
         <div className="w-full min-h-screen mt-[60px] bg-gray-300 flex flex-row">
-        <div className="w-[30%]  m-3 bg-white rounded text-left">
+        <div className="w-[20%]  m-3 bg-white rounded text-left">
         <h1 className="font-semibold text-2xl mt-5 ml-5 mb-3">Filters</h1>
         <Divider orientation="horizontal"/>
+        <h1 className="font-semibold ml-4 mt-4">CATEGORIES</h1>
+        <section className="font-semibold ml-6 mt-1 mb-5 text-sm text-gray-500 flex gap-2 flex-col">
+        <h1>Category 1</h1>
+        <h1>Category 1</h1>
+        <h1>Category 1</h1>
+        </section>
+        <Divider orientation="horizontal"/>
+        <section className="font-semibold ml-4 mt-3 mb-5 flex flex-col w-full ">
+            <h1>PRICE</h1>
+            <Box sx={{ width: 230 }}>
+                <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+            </Box>
+        </section>
+        <Divider orientation="horizontal"/>
+        <section className="font-semibold text-sm ml-4 mt-5 flex flex-col gap-4 w-full">
+            <h1>BRAND</h1>
+            <h1>DISCOUNT</h1>
+            <h1>SIZE</h1>
+            <h1>COLOR</h1>
+            <h1>PATTERN</h1>
+            <h1>TYPE</h1>
+            <h1>OFFERS</h1>
+        </section>
         </div>
         <div className="w-[70%] min-h-screen pr-5">
        { productDetailData.length!==0 && productDetailData.map((key,index)=>{

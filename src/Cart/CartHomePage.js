@@ -1,11 +1,28 @@
 import { Divider } from "@mui/material";
 import CartItem from "./CartItem";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function CartHomePage(){
+    const [productData,setProductData]=useState([]);
+    useEffect(()=>{
+        async function fetchProductsFromCart(){
+            const result= await axios.get('http://localhost:8080/cart')
+            setProductData(result.data);
+        }
+        fetchProductsFromCart();
+    })
     return (
         <div className="mt-[62px] w-full bg-gray-200 min-h-screen flex flex-row">
         <div className="w-[65%]">
-            <CartItem/>
+            {   
+                productData.map((key,index)=>{
+                    return (
+                        <CartItem imageUrl={key.image} productName={key.name} productPrice={key.price}/>
+                    )
+                })
+            }
+                
         </div>
         <div className="w-[35%] rounded">
         <div className="bg-white mt-2 rounded">

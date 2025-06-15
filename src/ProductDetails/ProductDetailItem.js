@@ -4,7 +4,16 @@ function ProductDetailItem({productId,productName,productUrl}){
     async function handleOnAddToCartButtonClick(event,productId){
         event.preventDefault();
         console.log("The Add to Cart Event value is ",event);
-        const result=await axios.post('http://localhost:8080')
+        const requestBody={
+            id:productId,
+            quantity:1
+        }
+        const result=await axios.post('http://localhost:8080//add-to-cart',requestBody,{
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+        console.log("The result of adding the product to cart is ",result);
 
     }
     return (
@@ -31,7 +40,7 @@ function ProductDetailItem({productId,productName,productUrl}){
              <p className="text-sm">Free Delivery</p>
              <p className="text-sm text-green-500">Bank Offer</p>
              <p className="text-sm">Or Pay ₹14,607 + 100</p>
-             <button className="border rounded bg-orange-500 p-2 mt-3">Add To Cart</button>
+             <button className="border rounded bg-orange-500 p-2 mt-3" >Add To Cart</button>
              </section>
         </form>
     )
