@@ -3,9 +3,13 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { Badge } from '@mui/material';
 import ZyaraLogo from '../assets/ZyaraLogo.png'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
 function Header(){
     const navigate=useNavigate();
+    function getItemsOfWishlist(){
+        navigate('/wishlist')
+    }
     function handleOnCartClick(){
              navigate('/cart')
     }
@@ -34,6 +38,17 @@ return (
         ></AccountCircleOutlinedIcon>
         <p className='font-semibold ml-2'>Login</p>
 
+        </section>
+        <section className='flex ml-3 mr-3 items-center mt-1'>
+        <FavoriteBorderIcon sx={{
+            height:40,
+            width:40,
+            stroke: "#ffffff",
+            strokeWidth:1
+        }}
+            onClick={()=>getItemsOfWishlist()}
+        />
+        <p className='font-semibold ml-2'>Wishlist</p>
         </section>
         <section className='flex ml-3 mr-3 items-center mt-1' name="Cart">
         <Badge badgeContent={4} color="primary">

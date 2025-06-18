@@ -1,10 +1,12 @@
 import { useLocation } from "react-router-dom";
 import ProductDetailItem from "./ProductDetailItem";
-import { Box, Divider, Slider } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, Divider, IconButton, Slider, Snackbar } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 
 function ProductDetails(){
+    const[snackBarState,setSnackBarState]=useState(false);
     const [productDetailData,setProductDetailData]=useState([]);
     const location=useLocation();
     async function getProductByCategoryId(){
@@ -12,11 +14,29 @@ function ProductDetails(){
         console.log("The Product Details is ",result.data)
         return result.data;
     }
+    const action = (
+        <React.Fragment>
+          <Button color="secondary" size="small" onClick={handleClose}>
+            UNDO
+          </Button>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
+    function handleClose(){
+        setSnackBarState(false);
+    }
     useEffect(() => {
         async function fetchData() {
           try {
-            const value = await getProductByCategoryId(); // ✅ wait for resolved value
-            setProductDetailData(value); // ✅ set actual array
+            const value = await getProductByCategoryId(); 
+            setProductDetailData(value); 
           } catch (error) {
             console.error("Error fetching product detail data:", error);
           }
@@ -26,6 +46,15 @@ function ProductDetails(){
       }, [location.state.productName]);
     return (
         <div className="w-full min-h-screen mt-[60px] bg-gray-300 flex flex-row">
+        {  
+            <Snackbar
+        open={snackBarState}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Product Added to Cart"
+        action={action}
+      />
+        }
         <div className="w-[20%]  m-3 bg-white rounded text-left">
         <h1 className="font-semibold text-2xl mt-5 ml-5 mb-3">Filters</h1>
         <Divider orientation="horizontal"/>
@@ -57,7 +86,7 @@ function ProductDetails(){
        { productDetailData.length!==0 && productDetailData.map((key,index)=>{
         {console.log("The Key.Image value is",key.image)}
             return (
-                <ProductDetailItem productId={key.id} productName={key.description} productUrl={key.image} key={index}/>
+                <ProductDetailItem productId={key.id} productName={key.description} productUrl={key.image} key={index} setSnackBarState={setSnackBarState}/>
             )
        })}
         {console.log("The Product details is ",productDetailData)}

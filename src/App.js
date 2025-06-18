@@ -9,7 +9,7 @@ import Router from './Router';
 function App() {
 
   return (
-    <div className="App bg-gray-100 w-full h-screen flex flex-col">
+    <div className="App bg-gray-100 w-full flex flex-col">
       <Header/>
       <Router/>
       

@@ -5,20 +5,29 @@ import axios from "axios";
 
 function CartHomePage(){
     const [productData,setProductData]=useState([]);
+    const [priceDetails,setPriceDetails]=useState({
+        totalPrice:0
+    })
     useEffect(()=>{
         async function fetchProductsFromCart(){
             const result= await axios.get('http://localhost:8080/cart')
             setProductData(result.data);
+            const total = result.data.reduce((sum, item) => sum + item.price, 0);
+            setPriceDetails({
+                totalPrice: total
+            });
         }
         fetchProductsFromCart();
-    })
+        
+        
+    },[])
     return (
         <div className="mt-[62px] w-full bg-gray-200 min-h-screen flex flex-row">
         <div className="w-[65%]">
             {   
                 productData.map((key,index)=>{
                     return (
-                        <CartItem imageUrl={key.image} productName={key.name} productPrice={key.price}/>
+                        <CartItem imageUrl={key.image} productName={key.name} productPrice={key.price} productId={key.id} setTotalPrice={setPriceDetails} totalPrice={priceDetails.totalPrice}/>
                     )
                 })
             }
@@ -31,15 +40,15 @@ function CartHomePage(){
           <div className="flex flex-col items-start">
           <section className="p-3 pb-0 flex flex-row justify-between w-full">
           <p className="ml-3 mt-3">Price (2 Items)</p>
-          <p className="font-semibold ml-2 mt-3">₹43,999</p>
+          <p className="font-semibold ml-2 mt-3">₹{priceDetails.totalPrice}</p>
           </section>
           <section className="p-3 flex flex-row justify-between w-full">
           <p className="ml-3 mt-2">Discount </p>
-          <p className="font-semibold ml-2 mt-2 text-green-500">− ₹16,510</p>
+          <p className="font-semibold ml-2 mt-2 text-green-500">− ₹16</p>
           </section>
           <section className="p-3 flex flex-row justify-between w-full">
           <p className="ml-3 mt-2">Buy more & save more</p>
-          <p className="font-semibold ml-2 mt-2 text-green-500">− ₹1,000</p>
+          <p className="font-semibold ml-2 mt-2 text-green-500">− ₹77</p>
           </section>
           <section className="p-3 flex flex-row justify-between w-full">
           <p className="ml-3 mt-2">Delivery Charges</p>
@@ -61,7 +70,7 @@ function CartHomePage(){
           
           <section className="flex flex-row justify-between w-full p-3">
             <h1 className="ml-3 text-xl font-semibold">Total Amount</h1>
-            <h1 className="font-semibold text-xl">₹26,607</h1>
+            <h1 className="font-semibold text-xl">₹{priceDetails.totalPrice-16-77+118}</h1>
           </section>
           <Divider
           orientation="horizontal"
