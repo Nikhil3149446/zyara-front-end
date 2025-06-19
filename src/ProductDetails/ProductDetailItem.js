@@ -2,6 +2,16 @@ import axios from "axios";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useEffect, useState } from "react";
+export async function fetchFavouriteItems(){
+    const result=await axios.get('http://localhost:8080/get-items-of-wishlist',{
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
+    const favouriteItems=result.data;
+    console.log("The Favourite Items are ",favouriteItems);
+    return favouriteItems;
+  }
 function ProductDetailItem({productId,productName,productUrl,setSnackBarState}){
     const [itemSelection,setItemSelection]=useState({
         favouriteColor:'white',
@@ -48,30 +58,25 @@ function ProductDetailItem({productId,productName,productUrl,setSnackBarState}){
        )
     }
     }
+    
     useEffect(()=>{
         console.log("The Product Id in useEffect is ",productId);
-          async function fetchFavouriteItems(){
-            const result=await axios.get('http://localhost:8080/get-items-of-wishlist',{
-                headers:{
-                    'Content-Type':'application/json'
-                }
-            })
-            const favouriteItems=result.data;
-            console.log("The Favourite Items are ",favouriteItems);
+          async function fetchItems(){
+          const favouriteItems=await fetchFavouriteItems();
           if(favouriteItems.some(item => item.id === productId)){
             setItemSelection({
                 ...itemSelection,
                 favouriteColor:'red'
             })
           }
-          }
-          fetchFavouriteItems();
+        }
+        fetchItems();
           
     },[])
     return (
         <form className=" relative w-full h-[200px] flex flex-row bg-white p-4 m-3 rounded mr-10" onSubmit={(event)=>handleOnAddToCartButtonClick(event,productId)}>
         {console.log("ENtered the Product Detail Item")}
-             <img src={productUrl} className=""></img>
+             <img src={productUrl} className="w-[200px] "></img>
              <section className="flex flex-col items-start w-full">
              {/* <section className="flex flex-row justify-between w-full"> */}
              <p className="font-semibold text-xl ml-4 hover:text-blue-500">{productName}</p>
